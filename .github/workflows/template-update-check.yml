@@ -1,0 +1,42 @@
+name: Weekly Template Update Check
+
+on:
+  schedule:
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create-update-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for existing open issue
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          existing=$(gh issue list --label "template-update" --state open --json number --jq 'length')
+          echo "exists=$existing" >> "$GITHUB_OUTPUT"
+
+      - name: Create update check issue
+        if: steps.check.outputs.exists == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Weekly template update check" \
+            --label "template-update" \
+            --assignee "copilot-swe-agent" \
+            --body "Check if this template needs updates:
+
+          1. **Docker image versions**: Is the base Docker image using the latest stable tag?
+          2. **Configuration**: Are config files and env vars following current best practices?
+          3. **Security**: Are there any known vulnerabilities in the current setup?
+          4. **README**: Does the README accurately reflect the current setup?
+
+          If updates are needed, open a PR with the changes. If everything is up to date, close this issue with a comment."
