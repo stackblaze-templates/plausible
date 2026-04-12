@@ -1,6 +1,6 @@
-<p align="center"><img src="logo.png" alt="plausible" width="120"></p>
-
 # Plausible [![Maintained by StackBlaze](https://img.shields.io/badge/maintained%20by-StackBlaze-blue)](https://stackblaze.com) [![Weekly Updates](https://img.shields.io/badge/updates-weekly-green)](https://github.com/stackblaze-templates/plausible/actions) [![License](https://img.shields.io/github/license/stackblaze-templates/plausible)](LICENSE) [![Deploy on StackBlaze](https://img.shields.io/badge/Deploy%20on-StackBlaze-orange)](https://stackblaze.com)
+
+<p align="center"><img src="logo.png" alt="plausible" width="120"></p>
 
 Simple and privacy-friendly web analytics. Lightweight (<1KB script), no cookies, fully GDPR/CCPA compliant.
 
