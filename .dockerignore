@@ -1,9 +1,12 @@
+.git
+.gitignore
 .env
 .env.local
 .env.*.local
-*.log
-.DS_Store
 *.pem
 *.key
 *.p12
 *.pfx
+node_modules
+README.md
+logo.png

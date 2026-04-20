@@ -99,6 +99,26 @@ flowchart LR
 
 ---
 
+## Security Configuration
+
+Before exposing Plausible to the internet, set these environment variables — **never use the defaults in production**.
+
+| Variable | Required | Description |
+|---|---|---|
+| `SECRET_KEY_BASE` | ✅ Yes | 64-character random secret. Generate: `openssl rand -base64 48` |
+| `DATABASE_URL` | ✅ Yes | Full PostgreSQL connection string including a strong password |
+| `BASE_URL` | ✅ Yes | Public HTTPS URL of your Plausible instance |
+
+**Insecure defaults to change before production:**
+
+- `SECRET_KEY_BASE` — the placeholder value in `docker-compose.yml` is not a secret; replace it.
+- `POSTGRES_PASSWORD` — the default `plausible` password is well-known; use a strong unique password.
+- `BASE_URL` — update to your real HTTPS domain so cookies are flagged `Secure`.
+
+Copy `.env.example` to `.env`, fill in real values, and pass them to the containers. The `.env` file is excluded from version control by `.gitignore`.
+
+---
+
 ### Maintained by [StackBlaze](https://stackblaze.com)
 
 This template is actively maintained by StackBlaze. We perform **weekly automated checks** to ensure:
