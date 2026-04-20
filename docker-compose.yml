@@ -1,11 +1,12 @@
 services:
   plausible:
-    image: ghcr.io/plausible/community-edition:latest
+    image: ghcr.io/plausible/community-edition:v2
     ports:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql://plausible:plausible@db:5432/plausible
-      - SECRET_KEY_BASE=change-me-to-a-64-char-secret-key-base-string-for-plausible!!
+      # REQUIRED: Generate a strong secret with: openssl rand -base64 48
+      - SECRET_KEY_BASE=REPLACE_WITH_STRONG_SECRET_AT_LEAST_64_CHARS
       - BASE_URL=http://localhost:8000
     depends_on:
       - db
@@ -15,11 +16,12 @@ services:
     environment:
       POSTGRES_DB: plausible
       POSTGRES_USER: plausible
+      # REQUIRED: Change this password before any production or internet-facing deployment
       POSTGRES_PASSWORD: plausible
     volumes:
       - db_data:/var/lib/postgresql/data
   clickhouse:
-    image: clickhouse/clickhouse-server:latest
+    image: clickhouse/clickhouse-server:24.8-alpine
     volumes:
       - clickhouse_data:/var/lib/clickhouse
 volumes:
